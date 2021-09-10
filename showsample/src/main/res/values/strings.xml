@@ -1,0 +1,52 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="fresco_app_name">ImageX</string>
+  <string name="app_name">ImageX</string>
+  <string name="fresco_title_activity_settings">配置</string>
+  <string name="fresco_setting_account">账号APP ID</string>
+  <string name="fresco_setting_network">更改网络库</string>
+  <string name="setting_animated_progressive">动图边下边放</string>
+  <string name="fresco_setting_animated_auto_play">动图自动播放</string>
+  <string name="fresco_setting_fail_retry">失败自动重试</string>
+  <string name="fresco_setting_cache_control">缓存控制</string>
+  <string name="fresco_setting_cache_clean">清除缓存</string>
+  <string name="setting_account_did">账号DID</string>
+  <string name="setting_account_uuid">账号UUID</string>
+  <string name="setting_others">其它测试项</string>
+  <string name="setting_others1">其它测试项1</string>
+
+    <string name="fresco_setting_super_resolution">开启图像超分</string>
+    <string name="fresco_setting_select_sr_mode">选择超分模型</string>
+    <string name="fresco_setting_enable_input_url">启用用户导入URL</string>
+    <string name="fresco_setting_input_url">输入URL</string>
+    <string name="fresco_setting_cloud_control_cofig">客户端云控配置</string>
+    <string name="fresco_setting_authorization_status_info">授权状态信息</string>
+    <string name="setting_confirm_upload">确认上传</string>
+    <string name="setting_cancel">取消</string>
+    <string name="setting_input_imagelist_url">输入图片列表地址</string>
+
+    <string name="fresco_setting_custom_url"></string>
+    <string name="copy_to_clipboard">一键复制至剪切板</string>
+    <string name="cloud_control_information">云控配置信息</string>
+    <string name="raw_image">原图</string>
+    <string name="sr_image">超分后图片</string>
+    <string name="raw_image_clickable">原图[点击图片查看原尺寸图像]</string>
+    <string name="sr_image_clickable">超分后[点击图片查看完整图像]</string>
+    <string name="click_to_show_same_size">点击查看相同大小图片</string>
+    <string name="report_log_information">上报埋点日志</string>
+
+    <string name="fresco_setting_ignore_cache">忽略内存缓存</string>
+    <string name="fresco_setting_ignore_disk">忽略磁盘缓存</string>
+  <string name="setting_mem_cache_clean">清除内存缓存</string>
+
+  <string name="fresco_title_activity_detail">图片详情</string>
+
+    <string name="activity_sr_raw_same_size">同尺寸原图+超分图</string>
+    <string name="activity_sr_detail">超分图片详情</string>
+    <string name="activity_authorization">授权状态信息</string>
+    <string name="activity_big_figure">完整尺寸图像</string>
+    <string name="activity_log_detail">上报埋点日志详情</string>
+    <string name="activity_cloud_control_config">客户端云控配置</string>
+    <string name="activity_heif_encode">HEIF编码测试</string>
+    <string name="activity_sr_test">SR测试</string>
+
+</resources>

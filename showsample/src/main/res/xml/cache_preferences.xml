@@ -1,0 +1,13 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <SwitchPreferenceCompat
+    app:key="setting_ignore_cache"
+    app:title="@string/fresco_setting_ignore_cache"
+    app:iconSpaceReserved="false" />
+
+  <SwitchPreferenceCompat
+    app:key="setting_ignore_disk"
+    app:title="@string/fresco_setting_ignore_disk"
+    app:iconSpaceReserved="false" />
+
+</PreferenceScreen>

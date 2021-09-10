@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/raw_image_clickable"
+        android:textSize="20dp" />
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/rawDetailFigure"
+        android:layout_width="264dp"
+        android:layout_height="260dp"
+        android:layout_gravity="center"
+        fresco:actualImageScaleType="centerInside" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/sr_image_clickable"
+        android:textSize="20dp" />
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/srDetailFigure"
+        android:layout_width="264dp"
+        android:layout_height="260dp"
+        android:layout_gravity="center"
+        fresco:actualImageScaleType="centerInside" />
+
+    <Button
+        android:id="@+id/showSameSizeImageButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/checker_board_dark"
+        android:layout_margin="10dp"
+        android:text="@string/click_to_show_same_size" />
+    <Button
+        android:id="@+id/checkLogButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/checker_board_dark"
+        android:layout_margin="10dp"
+        android:text="@string/report_log_information" />
+
+    <TextView
+        android:id="@+id/urlText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:textIsSelectable="true"/>
+
+
+
+</LinearLayout>

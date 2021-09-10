@@ -1,0 +1,106 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <EditTextPreference
+        app:iconSpaceReserved="false"
+        app:key="setting_account"
+        app:title="@string/fresco_setting_account" />
+    <Preference
+        app:iconSpaceReserved="false"
+        app:key="setting_account_did"
+        app:title="@string/setting_account_did" />
+    <Preference
+        app:iconSpaceReserved="false"
+        app:key="setting_account_uuid"
+        app:title="@string/setting_account_uuid" />
+
+    <ListPreference
+        app:entries="@array/setting_network_entries"
+        app:entryValues="@array/setting_network_values"
+        app:defaultValue="TTNet"
+        app:iconSpaceReserved="false"
+        app:key="setting_network"
+        app:title="@string/fresco_setting_network" />
+
+    <SwitchPreferenceCompat
+        app:iconSpaceReserved="false"
+        app:key="setting_animated_progressive"
+        app:title="@string/setting_animated_progressive" />
+
+    <SwitchPreferenceCompat
+        app:iconSpaceReserved="false"
+        app:key="setting_animated_auto_play"
+        app:title="@string/fresco_setting_animated_auto_play"
+        app:defaultValue="true" />
+
+    <SwitchPreferenceCompat
+        app:iconSpaceReserved="false"
+        app:key="setting_fail_retry"
+        app:title="@string/fresco_setting_fail_retry" />
+    <!--<SwitchPreferenceCompat
+        app:iconSpaceReserved="false"
+        app:key="setting_open_super_resolution"
+        app:title="@string/fresco_setting_super_resolution"
+        app:defaultValue="false"/>
+    <ListPreference
+        app:key="setting_select_mode"
+        app:title="@string/fresco_setting_select_sr_mode"
+        app:entries="@array/fresco_setting_select_mode_entries"
+        app:entryValues="@array/fresco_setting_entries_value"
+        app:isPreferenceVisible="false"
+        />-->
+    <SwitchPreferenceCompat
+        app:key="setting_select_file_source"
+        app:title="@string/fresco_setting_enable_input_url"
+        app:defaultValue="false"
+        app:isPreferenceVisible="false"
+        />
+    <EditTextPreference
+        app:positiveButtonText="@string/setting_confirm_upload"
+        app:negativeButtonText="@string/setting_cancel"
+        app:dialogTitle="@string/setting_input_imagelist_url"
+        app:key="fresco_setting_custom_url"
+        app:title="@string/fresco_setting_input_url"
+        app:isPreferenceVisible="false"
+        />
+    <Preference
+        app:iconSpaceReserved="false"
+        app:key="setting_cloud_config"
+        app:title="@string/fresco_setting_cloud_control_cofig" />
+    <Preference
+        app:iconSpaceReserved="false"
+        app:key="setting_anth_info"
+        app:title="@string/fresco_setting_authorization_status_info" />
+
+    <Preference
+        app:fragment="com.bytedance.fresco.showsample.SettingsActivity$CacheControlFragment"
+        app:iconSpaceReserved="false"
+        app:key="setting_cache_control"
+        app:title="@string/fresco_setting_cache_control" />
+
+    <Preference
+        app:iconSpaceReserved="false"
+        app:key="setting_mem_cache_clean"
+        app:title="@string/setting_mem_cache_clean" />
+
+
+    <Preference
+        app:iconSpaceReserved="false"
+        app:key="setting_cache_clean"
+        app:title="@string/fresco_setting_cache_clean" />
+
+    <!--<Preference
+        app:iconSpaceReserved="false"
+        app:key="setting_case"
+        app:title="Case"/>-->
+
+    <Preference
+        app:iconSpaceReserved="false"
+        app:key="setting_others"
+        app:title="@string/setting_others" />
+
+    <Preference
+        app:iconSpaceReserved="false"
+        app:key="setting_others1"
+        app:title="@string/setting_others1" />
+
+</PreferenceScreen>

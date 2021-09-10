@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".MainActivity">
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/logTextView"
+        android:layout_width="match_parent"
+        android:layout_height="155dp"
+        android:background="@color/grey1000"
+        android:textColor="@color/primary"
+        android:scrollbars="vertical"
+        android:visibility="gone"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:background="@color/primary"
+        android:layout_height="44dp">
+
+      <android.support.design.widget.TabLayout
+          android:id="@+id/mainTabLayout"
+          android:layout_width="match_parent"
+          android:layout_height="44dp"
+          android:layout_gravity="start"
+          android:layout_marginEnd="84dp"
+          app:tabSelectedTextColor="@color/colorAccent"
+          app:tabTextColor="@color/tab_text_color"
+          app:tabTextAppearance="@style/FrescoTabLayoutTextStyle"
+          app:tabMode="fixed"
+          />
+
+      <ImageView
+          android:id="@+id/mainSettingBtn"
+          android:layout_width="20dp"
+          android:layout_height="20dp"
+          android:layout_gravity="end|center_vertical"
+          android:layout_marginEnd="12dp"
+          android:src="@drawable/fresco_setting"
+          android:scaleType="fitXY"
+          android:contentDescription="setting" />
+
+      <ImageView
+          android:id="@+id/mainLogBtn"
+          android:layout_width="20dp"
+          android:layout_height="20dp"
+          android:layout_gravity="end|center_vertical"
+          android:layout_marginEnd="48dp"
+          android:src="@drawable/fresco_search"
+          android:scaleType="fitXY"
+          android:contentDescription="log" />
+
+    </FrameLayout>
+
+    <View
+        android:layout_height="0.5dp"
+        android:layout_width="match_parent"
+        android:background="@color/tab_segment"
+        />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/mainViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="9.5dp"
+        android:paddingLeft="9.5dp"
+        android:paddingEnd="9.5dp"
+        android:paddingRight="9.5dp"
+        />
+  </LinearLayout>
+
+
+<!--  <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--    android:id="@+id/mainSettingFab"-->
+<!--    android:layout_width="46dp"-->
+<!--    android:layout_height="46dp"-->
+<!--    android:layout_gravity="end|bottom"-->
+<!--    android:layout_marginBottom="29dp"-->
+<!--    />-->
+</FrameLayout>

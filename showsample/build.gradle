@@ -1,0 +1,162 @@
+apply plugin: 'com.android.application'
+//apply plugin: 'com.android.library'
+//apply from: rootProject.file('release-bintray2.gradle')
+
+buildscript {
+    ext {
+        kotlin_version = '1.3.60'
+        def compose_release_version = "dev08"
+        ext.compose_version = "0.1.0-$compose_release_version"
+        ext.compose_compiler_extension_version = "0.1.0-$compose_release_version"
+    }
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
+    }
+}
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+
+    packagingOptions {
+        pickFirst 'lib/x86/libc++_shared.so'
+        pickFirst 'lib/arm64-v8a/libc++_shared.so'
+        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
+        pickFirst 'lib/x86_64/libc++_shared.so'
+    }
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+
+        ndk {
+            abiFilters 'x86', 'x86_64', 'arm64-v8a', 'armeabi-v7a'
+        }
+        missingDimensionStrategy 'ndk','noasan', 'asan'
+        //AppLog
+        manifestPlaceholders.put("APPLOG_SCHEME", "bytedance-image-test".toLowerCase())
+    }
+
+    signingConfigs {
+        debug {
+            keyAlias 'android'
+            keyPassword 'android'
+            storeFile file("./debug.keystore")
+            storePassword 'android'
+        }
+        release {
+            keyAlias 'android'
+            keyPassword 'android'
+            storeFile file("./debug.keystore")
+            storePassword 'android'
+        }
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
+    packagingOptions {
+        exclude 'META-INF/proguard/androidx-annotations.pro'
+        exclude 'META-INF/proguard/coroutines.pro'
+    }
+
+//    buildFeatures {
+//        // Enables Jetpack Compose for this module
+//        compose true
+//    }
+
+//    compileOptions {
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
+//    }
+
+//    composeOptions {
+//        kotlinCompilerExtensionVersion "$compose_compiler_extension_version"
+//    }
+
+//    kotlinOptions {
+//        jvmTarget = "1.8"
+//    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-showcase.pro'
+            signingConfig signingConfigs.debug
+        }
+
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-showcase.pro'
+            signingConfig signingConfigs.debug
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation 'com.squareup.okhttp3:okhttp:4.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation('com.android.support:appcompat-v7:28.0.0')
+    implementation('com.android.support:preference-v7:28.0.0')
+    implementation('com.android.support:design:28.0.0')
+
+
+//    implementation project(':animated-base')
+//    implementation project(':animated-gif')
+//    implementation project(':animated-webp')
+//    implementation project(':static-webp')
+//    implementation project(':native-filters')
+//    implementation project(':statistics')
+//    implementation project(':drawee-backends:drawee-pipeline')
+//    implementation project(':animated-heif')
+//    implementation project(':drawee')
+//    implementation project(':heif')
+//    implementation project(':encoder')
+//    implementation project(':animated-heif')
+//    implementation project(':imagepipeline-backends:imagepipeline-okhttp3')
+//    implementation project(':native-heif-encoder')
+//    implementation project(':sr')
+//    implementation project(path: ':avif')
+
+    implementation 'com.bytedance.fresco:fresco:1.2.0-tob'
+    implementation "com.bytedance.fresco:animated-gif:1.2.0-tob"  //gif
+    implementation "com.bytedance.fresco:animated-webp:1.2.0-tob" //webp animated
+    implementation "com.bytedance.fresco:webpsupport:1.2.0-tob"   //低版本webp支持
+    implementation "com.bytedance.fresco:drawee:1.2.0-tob"        //fresco组件
+    implementation "com.bytedance.fresco:statistics:1.2.0-tob"    //监控+网络组件
+    implementation "com.bytedance.fresco:heif:1.2.0-tob"           //heif静图
+    implementation "com.bytedance.fresco:animated-heif:1.2.0-tob"
+    implementation "com.bytedance.fresco:encoder:1.2.0-tob"
+    implementation "com.bytedance.fresco:nativeheifencoder:1.2.0-tob"
+    implementation "com.bytedance.fresco:avif:1.2.0-tob"
+}
+
+configurations.all {
+    exclude group:'com.bytedance.mpaas', module: 'if_encryptor'
+}
