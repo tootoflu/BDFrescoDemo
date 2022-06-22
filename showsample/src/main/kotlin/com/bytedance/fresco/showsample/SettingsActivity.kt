@@ -16,7 +16,7 @@ import android.support.v7.preference.SwitchPreferenceCompat
 import android.view.MenuItem
 import android.widget.Toast
 import com.bytedance.applog.AppLog
-//import com.bytedance.fresco.showsample.case.CaseActivity
+import com.bytedance.fresco.showsample.case.CaseActivity
 import com.bytedance.fresco.showsample.utils.FragmentFactory
 import com.facebook.drawee.backends.pipeline.Fresco
 import org.greenrobot.eventbus.EventBus
@@ -103,7 +103,8 @@ class SettingsActivity : BaseActivity(),
                 findPreference(ShowSampleConst.SETTING_ENABLE_USER_URL) as SwitchPreferenceCompat?
             val settingSuperCustomUrl: EditTextPreference? =
                 findPreference(ShowSampleConst.SETTING_USER_INPUT_URL) as EditTextPreference?
-            var isOpenSuperResolution = false
+            var isOpenSuperResolution = PreferenceManager.getDefaultSharedPreferences(context)
+                .getBoolean(ShowSampleConst.SETTING_ENABLE_SR, false);
 
             if (!isOpenSuperResolution) {
                 settingSuperResolutionMode?.isVisible = false;
@@ -204,16 +205,16 @@ class SettingsActivity : BaseActivity(),
             /**
              * setting_case
              */
-            /*val settingCase: Preference? = findPreference("setting_case")
+            val settingCase: Preference? = findPreference("setting_case")
             settingCase!!.setOnPreferenceClickListener {
                 startActivity(Intent(activity, CaseActivity::class.java))
                 true
-            }*/
+            }
 
             /**
              * setting_open_super_resolution
              * */
-            /*val settingSuperResolution: SwitchPreferenceCompat? =
+            val settingSuperResolution: SwitchPreferenceCompat? =
                 findPreference(ShowSampleConst.SETTING_ENABLE_SR) as SwitchPreferenceCompat?
             settingSuperResolution!!.setOnPreferenceClickListener {
                 isOpenSuperResolution = PreferenceManager
@@ -241,9 +242,9 @@ class SettingsActivity : BaseActivity(),
                     settingSuperCustomUrl?.isVisible = false;
                     false
                 }
-            }*/
+            }
 
-            /*//Switch status of [启用用户导入文件]
+            //Switch status of [启用用户导入文件]
             val settingUseUserUrl: SwitchPreferenceCompat? =
                 findPreference(ShowSampleConst.SETTING_ENABLE_USER_URL) as SwitchPreferenceCompat?
             settingUseUserUrl!!.setOnPreferenceClickListener {
@@ -256,7 +257,7 @@ class SettingsActivity : BaseActivity(),
                     EventBus.getDefault().post("openUserUrl")
                     true
                 }
-            }*/
+            }
 
             val cloudControl: Preference? = findPreference("setting_cloud_config") as Preference?
             cloudControl!!.setOnPreferenceClickListener {

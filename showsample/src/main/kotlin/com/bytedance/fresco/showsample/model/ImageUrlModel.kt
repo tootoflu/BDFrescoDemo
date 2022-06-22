@@ -3,7 +3,6 @@ package com.bytedance.fresco.showsample.model
 import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import android.util.Log
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
@@ -25,11 +24,12 @@ class ImageUrlModel : ViewModel() {
     companion object {
         const val STATIC_IMAGE = "静图"
         const val GIF_ANIMATED = "GIF动图"
-        const val WEBP_ANIMATED = "awebp"
-        const val HEIC_ANIMATED = "heic"
+        const val WEBP_ANIMATED = "AWEBP"
+        const val HEIC_ANIMATED = "HEIF"
         const val SUPER_RESOLUTION = "图像超分"
-        const val HEIC_PROGRESSVIE_STATIC = "heic静图渐进式"
-        const val STATIC_AVIF = "avif"
+        const val HEIC_PROGRESSVIE_STATIC = "HEIC静图渐进式"
+        const val STATIC_AVIF = "AVIF"
+        const val HEIC = "HEIC"
     }
 
     var baseUrl:String? = null
@@ -42,11 +42,14 @@ class ImageUrlModel : ViewModel() {
     val imageData: MediatorLiveData<MutableList<ImagePageData>> by lazy {
         MediatorLiveData<MutableList<ImagePageData>>().also { mediatorLiveData ->
             mediatorLiveData.value = ArrayList()
+            mediatorLiveData.addSource(staticImageUrl) { imageUrls ->
+                mediatorLiveData.value!!.add(ImagePageData(STATIC_IMAGE, imageUrls!!))
+            }
             mediatorLiveData.addSource(staticAvifUrl) { imageUrls ->
                 mediatorLiveData.value!!.add(ImagePageData(STATIC_AVIF, imageUrls!!))
             }
-            mediatorLiveData.addSource(staticImageUrl) { imageUrls ->
-                mediatorLiveData.value!!.add(ImagePageData(STATIC_IMAGE, imageUrls!!))
+            mediatorLiveData.addSource(heic) { imageUrls ->
+                mediatorLiveData.value!!.add(ImagePageData(HEIC, imageUrls!!))
             }
             mediatorLiveData.addSource(gifAnimatedUrl) {
                 mediatorLiveData.value!!.add(ImagePageData(GIF_ANIMATED, it!!))
@@ -98,6 +101,12 @@ class ImageUrlModel : ViewModel() {
         }
     }
 
+    private val heic: MutableLiveData<ArrayList<String>> by lazy {
+        MutableLiveData<ArrayList<String>>().also {
+            it.value = loadHeicUrl()
+        }
+    }
+
     //Delete the super resolution image page
     fun removeSuperPage() {
         val tempImageData = imageData.value
@@ -120,9 +129,9 @@ class ImageUrlModel : ViewModel() {
 
     //Add a SR page with custom images
     fun addSuperPage(tempImagePageDataSuper: ImagePageData) {
-//        val tempImagData = imageData.value
-//        tempImagData?.add(tempImagePageDataSuper)
-//        imageData.value = tempImagData
+        val tempImagData = imageData.value
+        tempImagData?.add(tempImagePageDataSuper)
+        imageData.value = tempImagData
     }
 
     fun useUserUrl(urlAddress: String) {
@@ -3491,9 +3500,7 @@ class ImageUrlModel : ViewModel() {
             "https://raw.githubusercontent.com/AOMediaCodec/av1-avif/master/testFiles/Microsoft/still_picture.avif",
             "https://raw.githubusercontent.com/AOMediaCodec/av1-avif/master/testFiles/Netflix/avif/hdr_cosmos01650_cicp9-16-0_lossless.avif",
             // 以上测试过性能，参见：https://bytedance.feishu.cn/wiki/wikcnNXffNpJmejWXhpinSfR4Zf#
-            "https://raw.githubusercontent.com/AOMediaCodec/av1-avif/master/testFiles/Apple/multilayer_examples/animals_00_multilayer_a1lx.avif",
             "https://raw.githubusercontent.com/AOMediaCodec/av1-avif/master/testFiles/Apple/multilayer_examples/animals_00_multilayer_a1op_lsel.avif",
-            "https://raw.githubusercontent.com/AOMediaCodec/av1-avif/master/testFiles/Apple/multilayer_examples/animals_00_multilayer_grid_a1lx.avif",
             "https://raw.githubusercontent.com/AOMediaCodec/av1-avif/master/testFiles/Apple/multilayer_examples/animals_00_singlelayer.avif",
             "https://raw.githubusercontent.com/AOMediaCodec/av1-avif/master/testFiles/Link-U/fox.profile0.10bpc.yuv420.avif",
             "https://raw.githubusercontent.com/AOMediaCodec/av1-avif/master/testFiles/Link-U/fox.profile0.10bpc.yuv420.monochrome.avif",
@@ -3521,6 +3528,61 @@ class ImageUrlModel : ViewModel() {
             // 以下为动图
             "https://raw.githubusercontent.com/AOMediaCodec/av1-avif/master/testFiles/Netflix/avis/Chimera-AV1-10bit-480x270.avif",
             "https://raw.githubusercontent.com/AOMediaCodec/av1-avif/master/testFiles/Netflix/avis/alpha_video.avif"
+        )
+    }
+
+    private fun loadHeicUrl(): ArrayList<String> {
+        return arrayListOf(
+            "http://p3-d.douyinpic.com/tos-cn-p-0000/1080x1920~tplv-crop-center:10:19.heic",
+            "http://p3-d.douyinpic.com/tos-cn-p-0000/1080x1920~tplv-crop-center:12:12.heic",
+            "http://p3-d.douyinpic.com/tos-cn-p-0000/1080x1920~tplv-crop-center:15:18.heic",
+            "http://p3-d.douyinpic.com/tos-cn-p-0000/1080x1920~tplv-crop-center:17:12.heic",
+            "http://p3-d.douyinpic.com/tos-cn-p-0000/1080x1920~tplv-crop-center:19:10.heic",
+            "http://p5.toutiaoimg.com/pgc-image/3d6ca315bd1941f19fd17eb5a71838d6~tplv-tt-shrink:1080:0.heic",
+            "http://p26.toutiaoimg.com/pgc-image/Ry0r2iAB4YGgoV~tplv-tt-shrink:1080:0.heic",
+            "http://p26.toutiaoimg.com/pgc-image/608f72450bc440508d89c5861aede3b8~tplv-tt-shrink:1080:0.heic",
+            "http://p6.toutiaoimg.com/pgc-image/9998efb5c3814bd698dc91cf8c8f10c5~tplv-tt-shrink:1080:0.heic",
+            "http://p3-d.douyinpic.com/tos-cn-p-0000/1080x1920~tplv-crop-center:96:96.heic",
+            "http://p26.toutiaoimg.com/pgc-image/67c553b345b24ca6b606feb96756e008~tplv-tt-shrink:120:0.heic",
+            "http://p3-d.douyinpic.com/tos-cn-p-0000/1080x1920~tplv-crop-center:168:168.heic",
+            "http://p6.toutiaoimg.com/pgc-image/828832803df54bc48a22deef63e6e069~tplv-tt-shrink:1080:0.heic",
+            "http://p3-d.douyinpic.com/tos-cn-p-0000/1080x1920~tplv-crop-center:248:441.heic",
+            "http://p9-tt.byteimg.com/novel-images/8f77f1ff7af67a4e3735f5a351e388e6~tplv-shrink:300:0.heic",
+            "http://p6-tt-b.byteimg.com/tos-cn-i-0000/d6505398bff111e99ccd7cd30a545d72~noop.heic",
+            "http://p5.toutiaoimg.com/pgc-image/668888ee600446608f0a76446f44dd3a~tplv-tt-shrink:1080:0.heic",
+            "http://p26.toutiaoimg.com/192300045cea1c7bdc5d~tplv-tt-shrink:1080:0.heic",
+            "http://p6-tt-b.byteimg.com/tos-cn-p-0015/13a4d53a2bfa433eae8be5e4ad37abf8_1625305605~tplv-tt-svzoom-v3:720:1280.heic",
+            "http://p9.toutiaoimg.com/pgc-image/Ra4vBItGgcK3Sa~tplv-tt-shrink:1080:0.heic",
+            "http://p6-tt-b.byteimg.com/tos-cn-p-0015/a9ec8875bdbb4af08a5c27ddb73723d7~tplv-tt-cs0:720:1280.heic",
+            "http://p6.toutiaoimg.com/pgc-image/de7942328aa54f24ae62c469705f4f98~tplv-tt-shrink:1080:0.heic",
+            "http://p5.toutiaoimg.com/c5e000247cce79c9c15~tplv-tt-shrink:1080:0.heic",
+            "http://p5.toutiaoimg.com/pgc-image/112aec345f41472cb1f9a7c0c2003f4b~tplv-tt-shrink:1080:0.heic",
+            "http://p5.toutiaoimg.com/pgc-image/e8800b5a7ded4713919a2522241993a6~tplv-tt-shrink:1080:0.heic",
+            "http://p6-tt-b.byteimg.com/tos-cn-p-0004/fb66b4b698bb471daaab567bd4bc9c3f_1623821500~noop.heic",
+            "http://p5.toutiaoimg.com/pgc-image/3f0ad6afb2c4484dace5ddc3de1726eb~tplv-tt-shrink:1080:0.heic",
+            "http://p6.toutiaoimg.com/pgc-image/c5fba035c3ee468e99e3663c3051d7e4~tplv-tt-shrink:1080:0.heic",
+            "http://p9.toutiaoimg.com/pgc-image/bcced2bb0fc8441580cbd68f2a9c9595~tplv-tt-shrink:1080:0.heic",
+            "http://p3.toutiaoimg.com/pgc-image/a4aef6ed85514c6ba378550077c5e121~tplv-tt-shrink:1080:0.heic",
+            "http://p5.toutiaoimg.com/pgc-image/920f8163b0774e149e51b24ec74393b0~tplv-tt-shrink:1080:0.heic",
+            "http://p3.toutiaoimg.com/pgc-image/3e2e5cad1c084ce7bd47677a406cb0fd~tplv-tt-shrink:1080:0.heic",
+            "http://p6-tt-b.byteimg.com/tos-cn-p-0000/924f287ec666493ba76a415070431313~noop.heic",
+            "http://p6-tt-b.byteimg.com/tos-cn-i-0000/1684bb6e7d3c11e9a9e47cd30adf70da~noop.heic",
+            "http://p3-b.toutiaoimg.com/web.business.image/202105145d0d6b1dc9133d3a4875b229~noop.heic",
+            "http://p6-tt-b.byteimg.com/tos-cn-i-0004/cafaaa0a55324f7cb605e1cc12eae956~noop.heic",
+            "http://p6-tt-b.byteimg.com/tos-cn-i-0000/0cf9f786bb1b11e9b58cac1f6b0ec8fa~noop.heic",
+            "http://p3-ab-k.toutiaoimg.com/pgc-image/1539098295040179ec7f4c1~tplv-tt-shrink-thumb8:1080:0.heic",
+            "http://p6.toutiaoimg.com/pgc-image/a24ce5d979b247bda09ab64e6ef0a20f~tplv-tt-shrink:1080:0.heic",
+            "http://p3-ab-k.toutiaoimg.com/pgc-image/e0795cc65a6d4d5b8d8aa408a95aa653~tplv-tt-shrink-thumb8:1080:0.heic",
+            "http://p6.toutiaoimg.com/pgc-image/7d58125458894879a7ab2020967042fb~tplv-tt-shrink:1080:0.heic",
+            "http://p9.toutiaoimg.com/pgc-image/4c42b20e83384459b7e6987832c2ae25~tplv-tt-shrink:1080:0.heic",
+            "http://p3-ab-k.toutiaoimg.com/pgc-image/aaad297641194e3cb9f06efb904798f6~tplv-tt-shrink-thumb8:1080:0.heic",
+            "http://tosv.byted.org/obj/tostest/29_240p.heic",
+            "http://tosv.byted.org/obj/tostest/30_240p.heic",
+            "http://tosv.byted.org/obj/tostest/31_240p.heic",
+            "http://tosv.byted.org/obj/tostest/32_240p.heic",
+            "http://p6.douyinpic.com/tos-cn-p-0015/2679e162677b455d8ee0b759aab3bced~tplv-dy-cropcenter-autoq-75:248:330.heic",
+            "http://p6.douyinpic.com/tos-cn-p-0015/63ab34ace05e453abec77a06e1d6a854~tplv-dy-shrink:558:992.heic",
+            "http://p6.douyinpic.com/tos-cn-p-0015/585d746e482b4a89ae7033a0e050c6dc_1625323711~tplv-dy-360p.heic"
         )
     }
 }

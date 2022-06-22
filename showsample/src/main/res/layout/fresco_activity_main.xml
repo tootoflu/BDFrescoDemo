@@ -32,7 +32,7 @@
           app:tabSelectedTextColor="@color/colorAccent"
           app:tabTextColor="@color/tab_text_color"
           app:tabTextAppearance="@style/FrescoTabLayoutTextStyle"
-          app:tabMode="fixed"
+          app:tabMode="scrollable"
           />
 
       <ImageView

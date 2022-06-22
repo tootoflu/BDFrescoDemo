@@ -24,13 +24,14 @@ import android.widget.TextView
 import com.bytedance.fresco.showsample.FigureDetailActivity.Companion.goDetail
 import com.bytedance.fresco.showsample.SrDetailActivity.Companion.goSrDetail
 import com.bytedance.fresco.showsample.model.ImageUrlModel
-//import com.bytedance.fresco.sr.SRPostProcessor
+import com.bytedance.fresco.sr.SRPostProcessor
 import com.bytedance.fresco.showsample.model.ImageUrlModel.Companion.HEIC_PROGRESSVIE_STATIC
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.drawee.interfaces.DraweeController
 import com.facebook.drawee.view.SimpleDraweeView
 import com.facebook.imagepipeline.common.ImageDecodeOptionsBuilder
 import com.facebook.imagepipeline.common.ResizeOptions
+import com.facebook.imagepipeline.common.RotationOptions
 import com.facebook.imagepipeline.request.ImageRequest
 import com.facebook.imagepipeline.request.ImageRequestBuilder
 import org.greenrobot.eventbus.EventBus
@@ -377,6 +378,7 @@ class MainContentAdapter(
                         it.isMultiplexerEnabled = false
                     }
                 }
+                .setPostprocessor(SRPostProcessor())            //One line code to open the SR function
 //                .setResizeOptions(ResizeOptions(width, height))
                 .setCacheChoice(ImageRequest.CacheChoice.DEFAULT).also {
                     if (enableIgnoreMemoryCache(context)) {
@@ -428,7 +430,8 @@ class MainContentAdapter(
                             it.customCacheName = "live_fresco_cache"
                         }
                     }
-                }
+                }.setRotationOptions(RotationOptions.autoRotateAtRenderTime())
+
             val controller: DraweeController = Fresco.newDraweeControllerBuilder()
                 .setImageRequest(builder.build())
                 .setOldController(holder.draweeView!!.controller)

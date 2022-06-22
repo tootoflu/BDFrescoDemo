@@ -36,18 +36,18 @@
         app:iconSpaceReserved="false"
         app:key="setting_fail_retry"
         app:title="@string/fresco_setting_fail_retry" />
-    <!--<SwitchPreferenceCompat
+    <SwitchPreferenceCompat
         app:iconSpaceReserved="false"
         app:key="setting_open_super_resolution"
         app:title="@string/fresco_setting_super_resolution"
-        app:defaultValue="false"/>
+        app:defaultValue="true"/>
     <ListPreference
         app:key="setting_select_mode"
         app:title="@string/fresco_setting_select_sr_mode"
         app:entries="@array/fresco_setting_select_mode_entries"
         app:entryValues="@array/fresco_setting_entries_value"
         app:isPreferenceVisible="false"
-        />-->
+        />
     <SwitchPreferenceCompat
         app:key="setting_select_file_source"
         app:title="@string/fresco_setting_enable_input_url"
@@ -88,10 +88,10 @@
         app:key="setting_cache_clean"
         app:title="@string/fresco_setting_cache_clean" />
 
-    <!--<Preference
+    <Preference
         app:iconSpaceReserved="false"
         app:key="setting_case"
-        app:title="Case"/>-->
+        app:title="Case"/>
 
     <Preference
         app:iconSpaceReserved="false"
