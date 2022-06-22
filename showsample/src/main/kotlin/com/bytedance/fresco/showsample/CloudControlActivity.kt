@@ -8,7 +8,7 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import com.bytedance.cloudcontrol.CloudControl
+import com.bytedance.fresco.cloudcontrol.CloudControl
 import com.bytedance.fresco.showsample.R.layout
 import kotlinx.android.synthetic.main.activity_cloud_control.cloudControltextView
 
@@ -46,8 +46,7 @@ class CloudControlActivity : BaseActivity() {
         }
     }
 
-    fun getCloudControlConfig(): String {
-        val cloudControl: CloudControl = CloudControl.getInstance()
-        return cloudControl.controlCache.cloudControlConfig
+    private fun getCloudControlConfig(): String {
+        return CloudControl.getCloudControlConfig()
     }
 }

@@ -3,8 +3,10 @@ package com.bytedance.fresco.showsample
 import android.app.Application
 import android.content.Context
 import android.util.Log
-import com.bytedance.cloudcontrol.CloudControl
 import com.bytedance.fresco.avif.AvifDecoder
+import com.bytedance.fresco.authorization.Authorization
+import com.bytedance.fresco.cloudcontrol.CloudControl
+import com.bytedance.fresco.cloudcontrol.InitConfig
 import com.bytedance.fresco.heif.HeifDecoder
 import com.facebook.cache.common.BaseCacheEventListener
 import com.facebook.cache.common.CacheEvent
@@ -22,7 +24,6 @@ import com.facebook.imagepipeline.memory.PoolFactory
 import com.facebook.net.FrescoTTNetFetcher
 import com.facebook.net.RetryInterceptManager
 import com.optimize.statistics.FrescoTraceListener
-import com.optimize.statistics.InitConfig
 import java.io.File
 import java.util.ArrayList
 import java.util.HashSet
@@ -43,6 +44,27 @@ object FrescoFactory {
     private const val LIVE_FRESCO_CONFIG = "live_fresco_config"
 
     fun init(context: Application, aid: String) {
+        val clazz = Authorization::class.java
+        try {
+            val field = clazz.getDeclaredField("DEBUG")
+            field.isAccessible = true
+            field.setBoolean(clazz, true)
+        } catch (e: NoSuchFieldException) {
+            e.printStackTrace()
+        } catch (e: IllegalAccessException) {
+            e.printStackTrace()
+        }
+
+        try {
+            val field = clazz.getDeclaredField("a")
+            field.isAccessible = true
+            field.setBoolean(clazz, true)
+        } catch (e: NoSuchFieldException) {
+            e.printStackTrace()
+        } catch (e: IllegalAccessException) {
+            e.printStackTrace()
+        }
+
         val initConfig = InitConfig(
             context,
             aid,
@@ -52,19 +74,24 @@ object FrescoFactory {
             "1",
             "48144589260",
             InitConfig.CHINA,
-            null,
-            null
+            "your token",
+            arrayListOf("your encodedAuthCode"),
+            true
         )
-        val ttNetFetcher = FrescoTTNetFetcher(initConfig)
 
-        CloudControl.init(initConfig)
+        try {
+            //如上config中需要输入申请的token以及encodedAuthCode 不然这里会报错
+            CloudControl.init(initConfig)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
         val listeners: MutableSet<RequestListener> = HashSet()
         listeners.add(RequestLoggingListener())
-        listeners.add(FrescoTraceListener(initConfig))
+        listeners.add(FrescoTraceListener())
         val factory = PoolFactory(PoolConfig.newBuilder().build())
         val builder = ImagePipelineConfig.newBuilder(context)
-            .setNetworkFetcher(ttNetFetcher)
+            .setNetworkFetcher(FrescoTTNetFetcher(initConfig))
             .setRequestListeners(listeners)
             .setProgressiveJpegConfig(SimpleProgressiveJpegConfig())
             .experiment()
@@ -76,7 +103,7 @@ object FrescoFactory {
                 ImageDecoderConfig.newBuilder().addDecodingCapability(
                     HeifDecoder.HEIF_FORMAT,
                     HeifDecoder.HeifFormatChecker(),
-                    HeifDecoder.HeifFormatDecoder(factory.pooledByteBufferFactory)
+                    HeifDecoder.HeifFormatDecoder(false)
                 ).addDecodingCapability(
                     AvifDecoder.AVIF_FORMAT,
                     AvifDecoder.AvifFormatChecker(),

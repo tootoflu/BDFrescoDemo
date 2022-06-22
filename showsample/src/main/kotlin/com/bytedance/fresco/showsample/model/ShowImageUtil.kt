@@ -5,7 +5,7 @@ import android.net.Uri
 import com.bytedance.fresco.showsample.enableAnimatedAutoPlay
 import com.bytedance.fresco.showsample.enableIgnoreDiskCache
 import com.bytedance.fresco.showsample.enableIgnoreMemoryCache
-//import com.bytedance.fresco.sr.SRPostProcessor
+import com.bytedance.fresco.sr.SRPostProcessor
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.drawee.interfaces.DraweeController
 import com.facebook.drawee.view.SimpleDraweeView
@@ -62,7 +62,7 @@ class ShowImageUtil {
                         .build()
                 )
                 .setProgressiveRenderingAnimatedEnabled(true)
-//                .setPostprocessor(SRPostProcessor())            //One line code to open the SR function, redundant in these two parts
+                .setPostprocessor(SRPostProcessor())            //One line code to open the SR function, redundant in these two parts
                 .setCacheChoice(ImageRequest.CacheChoice.DEFAULT).also {
                     if (enableIgnoreMemoryCache(context)) {
                         it.disableMemoryCache()

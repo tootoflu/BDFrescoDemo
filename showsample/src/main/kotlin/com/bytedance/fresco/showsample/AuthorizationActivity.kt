@@ -9,9 +9,7 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import com.bytedance.authorization.Authorization
-import com.bytedance.authorization.AuthorizationResult
-import kotlin.collections.Map.Entry
+import com.bytedance.fresco.authorization.Authorization
 
 /**
  * Activity that shows the authorization information
@@ -63,7 +61,7 @@ class AuthorizationActivity : AppCompatActivity() {
      * Get all authorization results information
      */
     fun getAllAuthorizations(authorization: Authorization): String? {
-        val allResult: String? = getAllAuthorizationFromMemory(authorization)
+        /*val allResult: String? = getAllAuthorizationFromMemory(authorization)
         return if (allResult != null) {
             allResult
         } else {
@@ -71,25 +69,28 @@ class AuthorizationActivity : AppCompatActivity() {
             if (response == null) {
                 return null
             } else {
-                authorization.authorizationResult.replaceAll(authorization.checkAuthCodeList(response))
+                authorization.updateAuthorizationResult(authorization.checkAuthCodeList(response))
             }
             getAllAuthorizationFromMemory(authorization)
-        }
+        }*/
+        return "Enable Authorization.DEBUG and see the log"
     }
 
     /**
      * Get all authorization results from memory
      */
     private fun getAllAuthorizationFromMemory(authorization: Authorization): String? {
-        var authInfo: StringBuilder? = null
-        val entries: Iterator<Entry<String, AuthorizationResult>> = authorization.authorizationResult.entries.iterator()
+        /*var authInfo: StringBuilder? = null
+        val entries: Iterator<AuthorizationResult> = authorization.authorizationResultList.iterator()
         authInfo = StringBuilder()
         while (entries.hasNext()) {
             val entry = entries.next()
-            authInfo.append(entry.value.decodedAuthCode)
-            authInfo.append("\n\n"+"Authorization: ${entry.value.isOk} ${entry.value.failureReason}"+"\n")
+            authInfo.append(entry.decodedAuthCode)
+            authInfo.append("\n\n"+"Authorization: ${entry.isOk} ${entry.failureReason}"+"\n")
             authInfo.append("————————————————————————————————————————————————————————————————")
         }
-        return authInfo?.toString()
+        return authInfo?.toString()*/
+
+        return "Enable Authorization.DEBUG and see the log"
     }
 }

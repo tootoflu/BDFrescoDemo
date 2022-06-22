@@ -70,6 +70,12 @@
             android:theme="@style/FrescoAppTheme"
             tools:ignore="LockedOrientationActivity" />
         <activity
+            android:name=".case.SuperResolutionActivity"
+            android:label="@string/activity_sr_test"
+            android:screenOrientation="portrait"
+            android:theme="@style/FrescoAppTheme"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
             android:name=".case.CaseActivity"
             android:label="Case"
             android:screenOrientation="portrait"

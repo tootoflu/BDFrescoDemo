@@ -28,6 +28,11 @@ android {
         pickFirst 'lib/arm64-v8a/libc++_shared.so'
         pickFirst 'lib/armeabi-v7a/libc++_shared.so'
         pickFirst 'lib/x86_64/libc++_shared.so'
+
+        pickFirst 'lib/x86/libauth.so'
+        pickFirst 'lib/arm64-v8a/libauth.so'
+        pickFirst 'lib/armeabi-v7a/libauth.so'
+        pickFirst 'lib/x86_64/libauth.so'
     }
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -110,6 +115,9 @@ android {
         }
     }
 
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -144,17 +152,18 @@ dependencies {
 //    implementation project(':sr')
 //    implementation project(path: ':avif')
 
-    implementation 'com.bytedance.fresco:fresco:1.2.0-tob'
-    implementation "com.bytedance.fresco:animated-gif:1.2.0-tob"  //gif
-    implementation "com.bytedance.fresco:animated-webp:1.2.0-tob" //webp animated
-    implementation "com.bytedance.fresco:webpsupport:1.2.0-tob"   //低版本webp支持
-    implementation "com.bytedance.fresco:drawee:1.2.0-tob"        //fresco组件
-    implementation "com.bytedance.fresco:statistics:1.2.0-tob"    //监控+网络组件
-    implementation "com.bytedance.fresco:heif:1.2.0-tob"           //heif静图
-    implementation "com.bytedance.fresco:animated-heif:1.2.0-tob"
-    implementation "com.bytedance.fresco:encoder:1.2.0-tob"
-    implementation "com.bytedance.fresco:nativeheifencoder:1.2.0-tob"
-    implementation "com.bytedance.fresco:avif:1.2.0-tob"
+    implementation 'com.bytedance.fresco:fresco:1.6.0-tob'
+    implementation "com.bytedance.fresco:animated-gif:1.6.0-tob"  //gif
+    implementation "com.bytedance.fresco:animated-webp:1.6.0-tob" //webp animated
+    implementation "com.bytedance.fresco:webpsupport:1.6.0-tob"   //低版本webp支持
+    implementation "com.bytedance.fresco:drawee:1.6.0-tob"        //fresco组件
+    implementation "com.bytedance.fresco:statistics:1.6.0-tob"    //监控+网络组件
+    implementation "com.bytedance.fresco:heif:1.6.0-tob"           //heif静图
+    implementation "com.bytedance.fresco:animated-heif:1.6.0-tob"
+    implementation "com.bytedance.fresco:encoder:1.6.0-tob"
+    implementation "com.bytedance.fresco:nativeheifencoder:1.6.0-tob"
+    implementation "com.bytedance.fresco:avif:1.6.0-tob"
+    implementation "com.bytedance.fresco:sr:1.6.0-tob"
 }
 
 configurations.all {

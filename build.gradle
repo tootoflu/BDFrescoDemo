@@ -19,6 +19,9 @@ allprojects {
         maven{
             url 'https://artifact.bytedance.com/repository/Volcengine/'
         }
+        maven{
+            url 'http://maven.byted.org/nexus/content/repositories/ugc_android/'
+        }
     }
 }
 
